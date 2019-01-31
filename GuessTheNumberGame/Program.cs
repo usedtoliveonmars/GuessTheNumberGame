@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 
 //Container
 namespace NumberGuesser
@@ -13,11 +14,53 @@ namespace NumberGuesser
 
             GreetUser(); //Ask user for info
 
+            TheGame(); //Creates the Random number and allows the user to guess the number
+        }
+
+
+        // Get and display app info
+        private static void GetAppInfo()
+        {
+            //Set app vars
+            string appName = "Guess The Number Game";
+            string appVersion = "1.0.0";
+            string appAurthor = "Chris Cushman";
+
+            //change test color
+            Console.ForegroundColor = ConsoleColor.Green;
+
+            //write out app info
+            Console.WriteLine("{0}: Version {1} by {2}", appName, appVersion, appAurthor);
+
+            //reset test color
+            Console.ResetColor();
+        }
+        //Ask user name and Greet 
+        private static void GreetUser()
+        {
+            //Start Here
+            Console.WriteLine("Welcome to the Number Guesser! \n\nWhat's your name?");
+
+            //get user input
+            string inputName = Console.ReadLine();
+
+            // todo - Provide a check for no numbers
+            bool containsInt = inputName.Any(char.IsDigit);
+
+            if (containsInt == true)
+            {
+                Console.WriteLine("You must have some sort of Name!");
+            }
+            else
+            {
+                Console.WriteLine($"Hello, {inputName}! Lets play the game!");
+            }
+        }
+        // Create the Game and test the guess
+        private static void TheGame()
+        {
             while (true)
             {
-
-                //int correctNumber = 7;
-
                 // creat a new random object
                 Random random = new Random();
 
@@ -42,18 +85,20 @@ namespace NumberGuesser
                         //Print error message
                         PrintColorMessage(ConsoleColor.Red, "Please use and actual number");
 
-                        //keep going
                         continue;
                     }
 
                     //cast to int and put in guess
                     guess = Int32.Parse(input);
 
-                    // Match guess to correct number
-                    if (guess != correctNumber)
+                    // Give the user a hint
+                    if (guess > correctNumber)
                     {
-                        // Print error message
-                        PrintColorMessage(ConsoleColor.Red, "Wrong number, please try again");
+                        PrintColorMessage(ConsoleColor.Red, "Lower");
+                    }
+                    if (guess < correctNumber)
+                    {
+                        PrintColorMessage(ConsoleColor.Red, "Higher");
                     }
                 }
                 // Print success message
@@ -67,6 +112,7 @@ namespace NumberGuesser
 
                 if (answer == "Y")
                 {
+                    Console.Clear();
                     continue;
                 }
                 else if (answer == "N")
@@ -79,37 +125,9 @@ namespace NumberGuesser
                 }
             }
         }
-        // Get and display app info
-        static void GetAppInfo()
-        {
-            //Set app vars
-            string appName = "Guess The Number Game";
-            string appVersion = "1.0.0";
-            string appAurthor = "Chris Cushman";
-
-            //change test color
-            Console.ForegroundColor = ConsoleColor.Green;
-
-            //write out app info
-            Console.WriteLine("{0}: Version {1} by {2}", appName, appVersion, appAurthor);
-
-            //reset test color
-            Console.ResetColor();
-        }
-        //Ask user name and Greet 
-        static void GreetUser()
-        {
-            //Start Here
-            Console.WriteLine("Welcome to the Number Guesser! \n\nWhat's your name?");
-
-            //get user input
-            string inputName = Console.ReadLine();
-
-            Console.WriteLine($"Hello, {inputName}! Lets play the game!");
-        }
 
         //Print color message
-        static void PrintColorMessage(ConsoleColor color, string message)
+        private static void PrintColorMessage(ConsoleColor color, string message)
         {
             //change test color
             Console.ForegroundColor = color;
