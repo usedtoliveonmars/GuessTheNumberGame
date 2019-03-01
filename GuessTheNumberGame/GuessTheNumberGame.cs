@@ -1,29 +1,25 @@
 using System;
 using System.Linq;
 
-//Container
 namespace NumberGuesser
 {
-    //Main Class
-    class Program
+    class GuessTheNumberGame
     {
-        //Entry Poin Method
-        static void Main(string[] args)
+        static void Main()
         {
-            GetAppInfo(); // Run function to get app info
+            GetAppInfo(); //Run function to get app info
 
             GreetUser(); //Ask user for info
 
             TheGame(); //Creates the Random number and allows the user to guess the number
         }
 
-
-        // Get and display app info
+        //Get and display app info
         private static void GetAppInfo()
         {
             //Set app vars
             string appName = "Guess The Number Game";
-            string appVersion = "1.0.0";
+            string appVersion = "1.1.0";
             string appAurthor = "Chris Cushman";
 
             //change test color
@@ -45,20 +41,70 @@ namespace NumberGuesser
             string inputName = Console.ReadLine();
 
             // todo - Provide a check for no numbers
+
+            //check if inputName contains any numbers
             bool containsInt = inputName.Any(char.IsDigit);
 
-            if (containsInt == true)
+            //while inputName contains keep asking
+            while (containsInt == true)
             {
-                Console.WriteLine("You must have some sort of Name!");
-            }
-            else
-            {
-                Console.WriteLine($"Hello, {inputName}! Lets play the game!");
-            }
+                Console.WriteLine("You can't have any numbers in your name");
+
+                //user inputs name again
+                string nextTry = Console.ReadLine();
+
+                //check for numbers again
+                bool testNextTry = nextTry.Any(char.IsDigit);
+
+                //if it doesn't contain numbers break out of loop
+                if (testNextTry == false)
+                {
+                    //if false greet the user
+                    Console.WriteLine("Hi " + nextTry);
+                    break;
+                }
+            }         
         }
-        // Create the Game and test the guess
+        //Create the Game and test the guess
         private static void TheGame()
         {
+            //Console.WriteLine("What level would you like to play?");
+            //Console.WriteLine("Select 1 for 1-10.");
+            //Console.WriteLine("Select 2 for 1-20.");
+            //Console.WriteLine("Select 3 for 1-30.");
+
+            //string selection = Console.ReadLine();
+
+            //try
+            //{
+            //    int intSelection = Int32.Parse(selection);
+
+            //    if (intSelection > 3)
+            //    {
+            //        Console.WriteLine("You must select 1, 2, or 3!");
+            //    }
+            //}
+            //catch (Exception e)
+            //{
+            //    Console.WriteLine(e.Message.ToString());
+            //}
+
+            //switch (selection)
+            //{
+            //    case 1:
+
+            //        break;
+            //    case 2:
+
+            //        break;
+            //    case 3:
+
+            //        break;
+            //    default:
+            //        Console.WriteLine("You must select a number!");
+            //        break;
+            //}
+
             while (true)
             {
                 // creat a new random object
@@ -101,6 +147,8 @@ namespace NumberGuesser
                         PrintColorMessage(ConsoleColor.Red, "Higher");
                     }
                 }
+
+                // Make this a method with a return
                 // Print success message
                 PrintColorMessage(ConsoleColor.Yellow, "Correct! You guessed it!");
 
@@ -121,11 +169,10 @@ namespace NumberGuesser
                 }
                 else
                 {
-                    return;
+                    Console.WriteLine("Sorry I didn't recognize that character, please enter again.");
                 }
             }
         }
-
         //Print color message
         private static void PrintColorMessage(ConsoleColor color, string message)
         {
@@ -138,6 +185,5 @@ namespace NumberGuesser
             //reset test color
             Console.ResetColor();
         }
-
     }
 }
