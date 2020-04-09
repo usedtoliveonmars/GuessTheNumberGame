@@ -105,6 +105,11 @@ namespace NumberGuesser
             //        break;
             //}
 
+            Random();
+        }
+
+        private static void Random()
+        {
             while (true)
             {
                 // creat a new random object
@@ -153,26 +158,27 @@ namespace NumberGuesser
                 PrintColorMessage(ConsoleColor.Yellow, "Correct! You guessed it!");
 
                 // ask to play again
-                Console.WriteLine("Play Again? {Y or N}");
+                while (true)
+                {
+                    Console.WriteLine("Play Again? {Y or N}");
+                    var answer = Console.ReadLine().ToUpper();
 
-                //get answer
-                string answer = Console.ReadLine().ToUpper();
+                    if (answer == "Y")
+                    {
+                        Console.Clear();
+                        break;
+                    }
 
-                if (answer == "Y")
-                {
-                    Console.Clear();
-                    continue;
-                }
-                else if (answer == "N")
-                {
-                    return;
-                }
-                else
-                {
-                    Console.WriteLine("Sorry I didn't recognize that character, please enter again.");
+                    if (answer == "N")
+                    {
+                        return;
+                    }
+
+                    Console.WriteLine("Sorry I didn't recognize that character");
                 }
             }
         }
+
         //Print color message
         private static void PrintColorMessage(ConsoleColor color, string message)
         {
