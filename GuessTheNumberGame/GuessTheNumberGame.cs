@@ -53,7 +53,7 @@ namespace NumberGuesser
                     break;
                 }
 
-                Console.WriteLine("Please enter a valid name");
+                PrintColorMessage(ConsoleColor.Red, "Please enter a valid name");
             }
         }
 
@@ -95,11 +95,11 @@ namespace NumberGuesser
                     // Give the user a hint
                     if (guess > correctNumber)
                     {
-                        PrintColorMessage(ConsoleColor.Red, "Lower");
+                        PrintColorMessage(ConsoleColor.Cyan, "Lower");
                     }
                     if (guess < correctNumber)
                     {
-                        PrintColorMessage(ConsoleColor.Red, "Higher");
+                        PrintColorMessage(ConsoleColor.Blue, "Higher");
                     }
                 }
 
