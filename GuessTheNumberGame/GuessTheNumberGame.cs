@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace NumberGuesser
 {
@@ -37,78 +38,27 @@ namespace NumberGuesser
             //Start Here
             Console.WriteLine("Welcome to the Number Guesser! \n\nWhat's your name?");
 
-            //get user input
-            string inputName = Console.ReadLine();
-
-            // todo - Provide a check for no numbers
-
-            //check if inputName contains any numbers
-            bool containsInt = inputName.Any(char.IsDigit);
-
-            //while inputName contains keep asking
-            while (containsInt == true)
+            while (true)
             {
-                Console.WriteLine("You can't have any numbers in your name");
+                //get user input
+                string inputName = Console.ReadLine();
 
-                //user inputs name again
-                string nextTry = Console.ReadLine();
+                // check if inputName has special or numbers characters
+                var onlyAllowedCharacters = new Regex("^[a-zA-Z]*$");
 
-                //check for numbers again
-                bool testNextTry = nextTry.Any(char.IsDigit);
-
-                //if it doesn't contain numbers break out of loop
-                if (testNextTry == false)
+                //while inputName contains numbers keep asking
+                if (onlyAllowedCharacters.IsMatch(inputName) && (!String.IsNullOrEmpty(inputName)))
                 {
-                    //if false greet the user
-                    Console.WriteLine("Hi " + nextTry);
+                    Console.WriteLine("Hi " + inputName);
                     break;
                 }
-            }         
+
+                Console.WriteLine("Please enter a valid name");
+            }
         }
+
         //Create the Game and test the guess
         private static void TheGame()
-        {
-            //Console.WriteLine("What level would you like to play?");
-            //Console.WriteLine("Select 1 for 1-10.");
-            //Console.WriteLine("Select 2 for 1-20.");
-            //Console.WriteLine("Select 3 for 1-30.");
-
-            //string selection = Console.ReadLine();
-
-            //try
-            //{
-            //    int intSelection = Int32.Parse(selection);
-
-            //    if (intSelection > 3)
-            //    {
-            //        Console.WriteLine("You must select 1, 2, or 3!");
-            //    }
-            //}
-            //catch (Exception e)
-            //{
-            //    Console.WriteLine(e.Message.ToString());
-            //}
-
-            //switch (selection)
-            //{
-            //    case 1:
-
-            //        break;
-            //    case 2:
-
-            //        break;
-            //    case 3:
-
-            //        break;
-            //    default:
-            //        Console.WriteLine("You must select a number!");
-            //        break;
-            //}
-
-            Random();
-        }
-
-        private static void Random()
         {
             while (true)
             {
@@ -177,6 +127,7 @@ namespace NumberGuesser
                     Console.WriteLine("Sorry I didn't recognize that character");
                 }
             }
+
         }
 
         //Print color message
